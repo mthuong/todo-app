@@ -29,17 +29,18 @@ export class MovieScreen extends React.PureComponent<MovieProps, MovieState> {
         method: 'GET',
       })
       this.setState({
-        movies: [...results]
+        movies: results
       })
     } catch (error) {
       console.log(error);
     }
   }
 
-  _keyExtractor = (item: MovieModel, index: number) => `${item.id}`;
+  _keyExtractor = (item: MovieModel, index: number) => `${item.id}` + index;
 
   _renderItem = ({ item }: { item: MovieModel }) => (
     <MovieComponent
+      // key={`${item.id}`}
       item={item}
     />
   );
@@ -48,26 +49,14 @@ export class MovieScreen extends React.PureComponent<MovieProps, MovieState> {
     const { movies } = this.state;
     console.log(movies.length)
     return (
-      <FlexibleView style={styles.container}>
-        <Row>
-          <TextInput
-            value={'searchText'}
-            // onChangeText={this._onChangeTextSearch}
-            placeholder='Search todo'
-            placeholderTextColor={Colors.secondaryTextColor}
-            style={styles.search}
-            returnKeyType='search'
-          // onSubmitEditing={this._onSearch}
-          />
-        </Row>
-        <FlatList
-          style={styles.flatlist}
-          data={movies}
-          extraData={this.state.movies}
-          keyExtractor={this._keyExtractor}
-          renderItem={this._renderItem}
-        />
-      </FlexibleView>
+      <FlatList
+        initialNumToRender={20}
+        style={styles.flatlist}
+        data={movies}
+        extraData={this.state.movies}
+        keyExtractor={this._keyExtractor}
+        renderItem={this._renderItem}
+      />
     );
   }
 }
@@ -85,8 +74,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 20
   },
   flatlist: {
-    flex: 1,
-    width: '100%'
+    // flex: 1,
+    // width: '100%'
   },
   search: {
     flex: 1,
