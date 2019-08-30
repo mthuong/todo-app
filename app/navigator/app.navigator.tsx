@@ -1,5 +1,5 @@
 import { createAppContainer, createStackNavigator } from "react-navigation";
-import { HomeScreen } from "../screens";
+import { HomeScreen, MovieScreen } from "../screens";
 import { RootStore } from "../stores";
 import { Colors } from "../themes";
 
@@ -15,7 +15,8 @@ export const createMainContainer = (rootStore: RootStore) => {
   return createAppContainer(
     createStackNavigator(
       {
-        HomeScreen
+        HomeScreen,
+        MovieScreen
       },
       {
         initialRouteName: "HomeScreen",

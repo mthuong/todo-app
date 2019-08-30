@@ -4,9 +4,9 @@ import Item from './components/Item';
 import { ItemModel } from '../../models/item.model';
 import { FlexibleView, TextButton, Row } from '../../components';
 import { Colors } from '../../themes';
+import { AppProps } from '../../stores';
 
-export interface HomeProps {
-}
+
 
 interface State {
   value: string
@@ -15,8 +15,8 @@ interface State {
   searchText: string
 }
 
-export class HomeScreen extends React.Component<HomeProps, State> {
-  constructor(props: HomeProps) {
+export class HomeScreen extends React.Component<AppProps, State> {
+  constructor(props: AppProps) {
     super(props);
     // this._onChangeText = this._onChangeText.bind(this)
     // this._onChangeTextSearch = this._onChangeTextSearch.bind(this)
@@ -47,6 +47,8 @@ export class HomeScreen extends React.Component<HomeProps, State> {
     data.splice(index, 1)
     this.setState({
       data: data
+    }, () => {
+      this._onSearch()
     })
   }
 
@@ -63,6 +65,14 @@ export class HomeScreen extends React.Component<HomeProps, State> {
     // const items = (searchText && searchText.length > 0) ? searchData : data
     return (
       <FlexibleView style={styles.container}>
+        <Row>
+          <TextButton
+            style={styles.button}
+            text='Go to movie app'
+            onPress={() => {
+              this.props.navigation && this.props.navigation.navigate('MovieScreen')
+            }} />
+        </Row>
         <Row>
           <TextInput
             value={searchText}
@@ -92,7 +102,7 @@ export class HomeScreen extends React.Component<HomeProps, State> {
         <FlatList
           style={styles.flatlist}
           data={searchData}
-          extraData={this.state}
+          extraData={this.state.searchData}
           keyExtractor={this._keyExtractor}
           renderItem={this._renderItem}
         />
@@ -166,5 +176,9 @@ const styles = StyleSheet.create({
     color: Colors.textColor,
     marginHorizontal: 20,
     height: 40
+  },
+  button: {
+    height: 40,
+    margin: 20
   }
 })
