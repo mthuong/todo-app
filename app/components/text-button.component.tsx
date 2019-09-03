@@ -8,14 +8,14 @@ interface Props extends StyleProp<any> {
 
 export class TextButton extends React.PureComponent<Props> {
   render() {
-    const { onPress, text, style } = this.props;
+    const { onPress, text, style, textStyle } = this.props;
     return (
       <TouchableOpacity
         onPress={() => onPress && onPress()}
         activeOpacity={0.5}
         css={style}
       >
-        <Text>{text}</Text>
+        <Text css={textStyle}>{text}</Text>
       </TouchableOpacity>
     );
   }

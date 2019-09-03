@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, FlatList, TextInput } from 'react-native';
 import Item from './components/Item';
 import { ItemModel } from '../../models/item.model';
-import { FlexibleView, TextButton, Row } from '../../components';
+import { FlexibleView, TextButton, Row, DefaultTextField } from '../../components';
 import { Colors } from '../../themes';
 import { AppProps } from '../../stores';
 
@@ -62,7 +62,6 @@ export class HomeScreen extends React.Component<AppProps, State> {
 
   render() {
     const { value, searchText, data, searchData } = this.state
-    // const items = (searchText && searchText.length > 0) ? searchData : data
     return (
       <FlexibleView style={styles.container}>
         <Row>
@@ -73,29 +72,34 @@ export class HomeScreen extends React.Component<AppProps, State> {
               this.props.navigation && this.props.navigation.navigate('MovieScreen')
             }} />
         </Row>
-        <Row>
-          <TextInput
+        <Row style={{ margin: 10 }}>
+          <DefaultTextField
+            textAlign='left'
+            style={styles.input}
+            fieldCss={`color: ${Colors.textColor}; font-size: 16px;`}
             value={searchText}
             onChangeText={this._onChangeTextSearch}
             placeholder='Search todo'
             placeholderTextColor={Colors.secondaryTextColor}
-            style={styles.search}
             returnKeyType='search'
             onSubmitEditing={this._onSearch}
           />
         </Row>
-        <Row>
-          <TextInput
+        <Row style={{ margin: 10 }}>
+          <DefaultTextField
+            textAlign='left'
+            style={styles.input}
+            fieldCss={`color: ${Colors.textColor}; font-size: 16px;`}
             value={value}
             onChangeText={this._onChangeText}
             placeholder='New todo'
             placeholderTextColor={Colors.secondaryTextColor}
-            style={styles.input}
           />
           <TextButton
             text='Add'
             onPress={this._onAddTodo}
             style={styles.add}
+            textStyle={styles.buttonText}
           />
         </Row>
 
@@ -158,13 +162,15 @@ const styles = StyleSheet.create({
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#1976d2'
+    backgroundColor: '#1976d2',
+    borderRadius: 10,
+    marginLeft: 10
   },
   input: {
     flex: 1,
-    fontSize: 16,
-    color: Colors.textColor,
-    marginHorizontal: 20
+    borderColor: '#e0e0e0',
+    borderWidth: 1,
+    borderRadius: 5,
   },
   flatlist: {
     flex: 1,
@@ -174,11 +180,14 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     color: Colors.textColor,
-    marginHorizontal: 20,
+    marginRight: 20,
     height: 40
   },
   button: {
     height: 40,
     margin: 20
+  },
+  buttonText: {
+    color: 'white'
   }
 })
