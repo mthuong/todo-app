@@ -14,7 +14,7 @@
     "mobx-react": "^5.4.3",
     "mobx-state-tree": "^3.10.0",
     "mobx-utils": "^5.1.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "react": "16.8.3",
     "react-native": "0.59.9",
     "react-native-gesture-handler": "^1.1.0",
